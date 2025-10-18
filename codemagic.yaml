@@ -1,0 +1,40 @@
+workflows:
+  ios-admin-ghost:
+    name: Ghost Publisher v2 iOS Build
+    max_build_duration: 60
+    environment:
+      xcode: 16.0        # Aktuelles Codemagic Xcode-Image mit iOS 26 SDK
+      ios_signing:
+        distribution_type: app_store
+      groups:
+        - apple_connect
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+          source: true
+    scripts:
+      - name: Build with Xcode
+        script: |
+          xcodebuild \
+            -project GhostPublisherV2.xcodeproj \
+            -scheme GhostPublisherV2 \
+            -configuration Release \
+            -sdk iphoneos \
+            -archivePath $CM_BUILD_DIR/GhostAdminApp.xcarchive \
+            clean archive CODE_SIGN_STYLE=Automatic
+          xcodebuild \
+            -exportArchive \
+            -archivePath $CM_BUILD_DIR/GhostAdminApp.xcarchive \
+            -exportOptionsPlist ExportOptions.plist \
+            -exportPath $CM_BUILD_DIR/export
+    artifacts:
+      - $CM_BUILD_DIR/export/*.ipa
+    publishing:
+      app_store_connect:
+        api_key: $ASC_API_KEY
+        key_id: $ASC_KEY_ID
+        issuer_id: $ASC_ISSUER_ID
+        submit_to_testflight: true
