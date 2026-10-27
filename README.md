@@ -243,3 +243,13 @@ final class GhostAPI {
 - Errors (401, 403, network issues) are handled gracefully.
 - Builds with the iOS 26 SDK and runs on iOS 18+ devices via Xcode 17 or later.
 
+
+---
+
+### Support / Unterstützung
+
+If my open-source contributions are useful to you, you can support my work voluntarily. Feedback, bug reports and contributions are just as welcome.
+
+Wenn dir meine Open-Source-Beiträge helfen, freue ich mich über freiwillige Unterstützung. Auch Feedback, Fehlermeldungen und Pull Requests helfen weiter.
+
+[Buy Me a Coffee](https://buymeacoffee.com/sly5ir9ov) · [PayPal](https://paypal.me/LarsM1980)
